@@ -38,12 +38,14 @@ public class ContactList {
         }
     }
     private boolean swap(Person a, Person b, int sortBy) {
-        int sort = 0;
-        switch (sort) {
-            case 0: return a.getFirstName().compareTo(b.getFirstName()) > 0;
-            case 1: return a.getLastName().compareTo(b.getLastName()) > 0;
-            case 2: return a.getPhoneNumber().compareTo(b.getPhoneNumber()) > 0;
-            default: return false;
+        if (sortBy == 0) {
+            return a.getFirstName().compareTo(b.getFirstName()) > 0;
+        } else if (sortBy == 1) {
+            return a.getLastName().compareTo(b.getLastName()) > 0;
+        } else if (sortBy == 2) {
+            return a.getPhoneNumber().compareTo(b.getPhoneNumber()) > 0;
+        } else {
+            return false;
         }
     }
 
@@ -103,78 +105,71 @@ public class ContactList {
             option = scanner.nextInt();
             scanner.nextLine();
 
-            switch (option) {
-                case 1:
-                    System.out.print("Enter first name: ");
-                    String firstName = scanner.nextLine();
-                    System.out.print("Enter last name: ");
-                    String lastName = scanner.nextLine();
-                    System.out.print("Enter phone number: ");
-                    String phoneNumber = scanner.nextLine();
-                    System.out.print("Is this person a student? y/n: ");
-                    String isStudent = scanner.nextLine();
-                    if (isStudent.equals("y")) {
-                        System.out.print("Enter grade: ");
-                        int grade = scanner.nextInt();
-                        scanner.nextLine();
-                        Student newStudent = new Student(firstName, lastName, phoneNumber, grade);
-                        addContact(newStudent);
-                    } else {
-                        Person newPerson = new Person(firstName, lastName, phoneNumber);
-                        addContact(newPerson);
-                    }
-                    System.out.println("New Contact Added.");
-                    break;
-                case 2:
-                    sort(0);
-                    printContacts();
-                    break;
-                case 3:
-                    sort(1);
-                    printContacts();
-                    break;
-                case 4:
-                    sort(2);
-                    printContacts();
-                    break;
-                case 5:
-                    listStudents();
-                    break;
-                case 6:
-                    System.out.print("Enter a first name: ");
-                    firstName = scanner.nextLine();
-                    Person foundFirstName = searchFirstName(firstName);
-                    if (foundFirstName != null) {
-                        System.out.println(foundFirstName);
-                    } else {
-                        System.out.println(firstName + " is not in the list.");
-                    }
-                    break;
-                case 7:
-                    System.out.print("Enter a last name: ");
-                    lastName = scanner.nextLine();
-                    Person foundLastName = searchLastName(lastName);
-                    if (foundLastName != null) {
-                        System.out.println(foundLastName);
-                    } else {
-                        System.out.println(lastName + " is not in the list.");
-                    }
-                    break;
-                case 8:
-                    System.out.print("Enter a phone number: ");
-                    phoneNumber = scanner.nextLine();
-                    Person foundPhoneNumber = searchPhoneNumber(phoneNumber);
-                    if (foundPhoneNumber != null) {
-                        System.out.println(foundPhoneNumber);
-                    } else {
-                        System.out.println(phoneNumber + " is not in the list.");
-                    }
-                    break;
-                case 0:
-                    System.out.println("Exiting...");
-                    break;
-                default:
-                    System.out.println("Invalid option!");
+            String firstName;
+            String lastName;
+            String phoneNumber;
+            if (option == 1) {
+                System.out.print("Enter first name: ");
+                firstName = scanner.nextLine();
+                System.out.print("Enter last name: ");
+                lastName = scanner.nextLine();
+                System.out.print("Enter phone number: ");
+                phoneNumber = scanner.nextLine();
+                System.out.print("Is this person a student? y/n: ");
+                String isStudent = scanner.nextLine();
+                if (isStudent.equals("y")) {
+                    System.out.print("Enter grade: ");
+                    int grade = scanner.nextInt();
+                    scanner.nextLine();
+                    Student newStudent = new Student(firstName, lastName, phoneNumber, grade);
+                    addContact(newStudent);
+                } else {
+                    Person newPerson = new Person(firstName, lastName, phoneNumber);
+                    addContact(newPerson);
+                }
+                System.out.println("New Contact Added.");
+            } else if (option == 2) {
+                sort(0);
+                printContacts();
+            } else if (option == 3) {
+                sort(1);
+                printContacts();
+            } else if (option == 4) {
+                sort(2);
+                printContacts();
+            } else if (option == 5) {
+                listStudents();
+            } else if (option == 6) {
+                System.out.print("Enter a first name: ");
+                firstName = scanner.nextLine();
+                Person foundFirstName = searchFirstName(firstName);
+                if (foundFirstName != null) {
+                    System.out.println(foundFirstName);
+                } else {
+                    System.out.println(firstName + " is not in the list.");
+                }
+            } else if (option == 7) {
+                System.out.print("Enter a last name: ");
+                lastName = scanner.nextLine();
+                Person foundLastName = searchLastName(lastName);
+                if (foundLastName != null) {
+                    System.out.println(foundLastName);
+                } else {
+                    System.out.println(lastName + " is not in the list.");
+                }
+            } else if (option == 8) {
+                System.out.print("Enter a phone number: ");
+                phoneNumber = scanner.nextLine();
+                Person foundPhoneNumber = searchPhoneNumber(phoneNumber);
+                if (foundPhoneNumber != null) {
+                    System.out.println(foundPhoneNumber);
+                } else {
+                    System.out.println(phoneNumber + " is not in the list.");
+                }
+            } else if (option == 0) {
+                System.out.println("Exiting...");
+            } else {
+                System.out.println("Invalid option!");
             }
         }
         while (option != 0);
